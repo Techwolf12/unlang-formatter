@@ -66,19 +66,24 @@ function formatUnlang(text: string): string {
 }
 
 function formatLine(line: string): string {
-  // Format keywords and operators
-  line = line.replace(/=\s*/g, ' = ');
-  line = line.replace(/\s*=\s*/g, ' = ');
-  line = line.replace(/>\s*/g, ' > ');
-  line = line.replace(/\s*>\s*/g, ' > ');
-  line = line.replace(/<\s*/g, ' < ');
-  line = line.replace(/\s*<\s*/g, ' < ');
-  line = line.replace(/\)\s*{/g, ') {');
+  // Split the line into parts that are inside and outside of strings
+  const parts = line.split(/(".*?"|'.*?')/);
+  for (let i = 0; i < parts.length; i++) {
+    // Only format parts that are outside of strings
+    if (i % 2 === 0) {
+      parts[i] = parts[i].replace(/=\s*/g, ' = ');
+      parts[i] = parts[i].replace(/\s*=\s*/g, ' = ');
+      parts[i] = parts[i].replace(/>\s*/g, ' > ');
+      parts[i] = parts[i].replace(/\s*>\s*/g, ' > ');
+      parts[i] = parts[i].replace(/<\s*/g, ' < ');
+      parts[i] = parts[i].replace(/\s*<\s*/g, ' < ');
+      parts[i] = parts[i].replace(/\)\s*{/g, ') {');
+      parts[i] = parts[i].replace(/#\s*/g, '# ');
+    }
+  }
 
-  // Format comments
-  line = line.replace(/#\s*/g, '# ');
-
-  return line;
+  // Rejoin the parts into a single line
+  return parts.join('');
 }
 
 export function deactivate() {}
