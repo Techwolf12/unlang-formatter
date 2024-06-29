@@ -6,6 +6,8 @@
   "engines": {
     "vscode": "^1.90.0"
   },
+  "publisher": "Techwolf12",
+  "pricing": "Free",
   "repository": {
     "type": "git",
     "url": "https://github.com/Techwolf12/unlang-formatter.git"
