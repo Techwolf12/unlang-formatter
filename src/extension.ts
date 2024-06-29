@@ -77,7 +77,7 @@ function formatLine(line: string): string {
       parts[i] = parts[i].replace(/=\s*=/g, '==');
       parts[i] = parts[i].replace(/\+\s*=/g, '+=');
       // Exclude :=, =~, ==, and += from being replaced
-      parts[i] = parts[i].replace(/(?<![:=~+])\s*=\s*(?!=)/g, ' = ');
+      parts[i] = parts[i].replace(/(?<![:=+])\s*=\s*(?![=~])/g, ' = ');
       parts[i] = parts[i].replace(/>\s*/g, ' > ');
       parts[i] = parts[i].replace(/\s*>\s*/g, ' > ');
       parts[i] = parts[i].replace(/<\s*/g, ' < ');
