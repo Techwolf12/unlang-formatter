@@ -71,8 +71,13 @@ function formatLine(line: string): string {
   for (let i = 0; i < parts.length; i++) {
     // Only format parts that are outside of strings
     if (i % 2 === 0) {
-      parts[i] = parts[i].replace(/=\s*/g, ' = ');
-      parts[i] = parts[i].replace(/\s*=\s*/g, ' = ');
+      // Correct spacing for specific operators
+      parts[i] = parts[i].replace(/:\s*=/g, ':=');
+      parts[i] = parts[i].replace(/=\s*~/g, '=~');
+      parts[i] = parts[i].replace(/=\s*=/g, '==');
+      parts[i] = parts[i].replace(/\+\s*=/g, '+=');
+      // Exclude :=, =~, ==, and += from being replaced
+      parts[i] = parts[i].replace(/(?<![:=~+])\s*=\s*(?!=)/g, ' = ');
       parts[i] = parts[i].replace(/>\s*/g, ' > ');
       parts[i] = parts[i].replace(/\s*>\s*/g, ' > ');
       parts[i] = parts[i].replace(/<\s*/g, ' < ');
